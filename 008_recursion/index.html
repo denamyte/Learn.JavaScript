@@ -39,6 +39,14 @@
   <hr>
 </section>
 
+<section>
+  <h1>Fibonacci</h1>
+  <button id="fibonacci">Task</button>
+  <br>
+  <label for="fibonacci_result">Answer: </label><input type="text" id="fibonacci_result">
+  <hr>
+</section>
+
 <script>
 
     document.getElementById("sumToN_cycle").onclick = function () {
@@ -80,6 +88,24 @@
             return (n > 1) ? n * factorial(n - 1) : 1;
         }
         document.getElementById("factorial_result").setAttribute("value", factorial(n));
+    };
+
+    document.getElementById("fibonacci").onclick = function () {
+        var n = +prompt("Input Fibonacci number");
+        function fib(n) {
+            if (n < 3) {
+                return 1;
+            }
+            function inner(n1, n2, count) {
+                if (count < n) {
+                    return inner(n2, n1 + n2, count + 1);
+                } else {
+                    return n2;
+                }
+            }
+            return inner(1, 1, 2);
+        }
+        document.getElementById("fibonacci_result").setAttribute("value", fib(n));
     };
 
 </script>
