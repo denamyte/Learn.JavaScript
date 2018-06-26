@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="../utils/utils.js"></script>
+</head>
+
+<body>
+
+<section>
+  <h1>Input two numbers and output their sum</h1>
+  <button id="twoNumbersSum">Task</button>
+  <br>
+  <hr>
+</section>
+
+<section>
+  <h1>The decimal part of a number</h1>
+  <button id="decimalPart">Task</button>
+  <br>
+  <hr>
+</section>
+
+
+<script>
+
+    document.getElementById("twoNumbersSum").onclick = function () {
+        var first = inputUntilNumber("Input first number");
+        var second = inputUntilNumber("Input second number");
+        alert(first + second);
+    };
+
+    document.getElementById("decimalPart").onclick = function () {
+        /** {number} */
+        var number = Math.abs(inputUntilNumber("Input any number, preferably with a decimal part", 1.1));
+        var str = number + "";
+        var dotPosition = str.indexOf(".");
+        var precision = dotPosition < 0 ? 0 : str.length - dotPosition - 1;
+        alert((number - Math.floor(number)).toFixed(precision));
+    };
+
+    function inputUntilNumber(query, initial) {
+        do {
+            var input = prompt(query, initial === undefined ? 0 : initial);
+            if (isNumeric(input)) return +input;
+            alert("Your input '" + input + "' is not numeric");
+        } while (true);
+    }
+
+
+
+</script>
+
+</body>
+
+</html>
