@@ -22,6 +22,22 @@
   <hr>
 </section>
 
+<section>
+  <h1>Binet formula for the Fibonacci numbers</h1>
+  <button id="binetFormula">Task</button>
+  <br>
+  <label for="fibSimpleResult">Fibonacci simple result</label>
+  <br><input id="fibSimpleResult">
+  <br>
+  <label for="fibBinetResult">Fibonacci Binet result</label>
+  <br><input id="fibBinetResult">
+  <br>
+  <label for="fibDiff">Fibonacci results difference</label>
+  <br><input id="fibDiff">
+  <br>
+  <hr>
+</section>
+
 
 <script>
 
@@ -40,14 +56,32 @@
         alert((number - Math.floor(number)).toFixed(precision));
     };
 
-    function inputUntilNumber(query, initial) {
-        do {
-            var input = prompt(query, initial === undefined ? 0 : initial);
-            if (isNumeric(input)) return +input;
-            alert("Your input '" + input + "' is not numeric");
-        } while (true);
+    document.getElementById("binetFormula").onclick = function () {
+        var number = inputUntilNumber("Input a number for the Fibonacci calculations");
+        var fibSimpleValue = fibSimple(number);
+        document.getElementById("fibSimpleResult").setAttribute("value", fibSimpleValue);
+        var fibBinetValue = fibBinet(number);
+        document.getElementById("fibBinetResult").setAttribute("value", fibBinetValue);
+        document.getElementById("fibDiff").setAttribute("value", fibSimpleValue - fibBinetValue);
+    };
+
+    function fibSimple(n) {
+        var a = 1,
+            b = 0,
+            x;
+        for (i = 0; i < n; i++) {
+            x = a + b;
+            a = b;
+            b = x;
+        }
+        return b;
     }
 
+    function fibBinet(n) {
+        var phi = (1 + Math.sqrt(5)) / 2;
+        // alert(phi);
+        return Math.round(Math.pow(phi, n) / Math.sqrt(5));
+    }
 
 
 </script>
