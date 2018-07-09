@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <script src="../utils/utils.js"></script>
+  <script src="code.js"></script>
 </head>
 
 <body>
@@ -69,12 +70,9 @@
     };
 
     document.getElementById("decimalPart").onclick = function () {
+        var input = inputUntilNumber("Input any number, preferably with a decimal part", 1.1);
         /** {number} */
-        var number = Math.abs(inputUntilNumber("Input any number, preferably with a decimal part", 1.1));
-        var str = number + "";
-        var dotPosition = str.indexOf(".");
-        var precision = dotPosition < 0 ? 0 : str.length - dotPosition - 1;
-        alert((number - Math.floor(number)).toFixed(precision));
+        alert(fractionalPart(input));
     };
 
     document.getElementById("binetFormula").onclick = function () {
