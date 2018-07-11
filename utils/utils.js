@@ -2,7 +2,7 @@
 function inputUntilNumberWithConditions(query, gtNumber, gteNumber, isInteger, initial) {
     do {
         var number = inputUntilNumber(query, initial === undefined ? 1 : initial);
-        if (gtNumber && number <= gtNumber) {
+        if (isNumeric(gtNumber) && number <= gtNumber) {
             alert("Your number is not greater than " + gtNumber);
             continue;
         }

@@ -22,3 +22,29 @@ describe("checkSpam", function() {
         assert.isFalse(checkSpam('innocent rabbit', ['viagra', 'XXX']));
     });
 });
+
+describe("truncate", function() {
+    it("truncate the long string to the given lenth (including the ellipsis)", function() {
+        assert.equal(
+            truncate("What I'd like to tell on this topic is:", 20),
+            "What I'd like to ..."
+        );
+    });
+
+    it("doesn't change short strings", function() {
+        assert.equal(
+            truncate("Hi everyone!", 20),
+            "Hi everyone!"
+        );
+    });
+
+});
+
+describe("extractCurrencyValue", function() {
+
+    it("for the string $120 returns the number 120", function() {
+        assert.strictEqual(extractCurrencyValue('$120'), 120);
+    });
+
+
+});
