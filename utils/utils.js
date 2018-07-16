@@ -29,3 +29,12 @@ function inputUntilNumber(query, initial) {
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
+
+/** Returns a pseudo-random number from a [min, max] range
+ *
+ * @param {number} min
+ * @param {number} max
+ */
+function randomInRangeIncl(min, max) {
+    return min + Math.floor(Math.random() * (max + 1 - min));
+}
