@@ -30,6 +30,13 @@
   <hr>
 </section>
 
+<section>
+  <h1>The sum of simple numbers from 1 to 100 (Eratosthenes sieve)</h1>
+  <button id="eratosthenesSieve">Run</button>
+  <br>
+  <hr>
+</section>
+
 <script>
 
     document.getElementById("stylesArray").onclick = function () {
@@ -60,6 +67,11 @@
         alert(arraySum(ar));
     };
 
+    document.getElementById('eratosthenesSieve').onclick = function () {
+        var cap = inputUntilNumberWithConditions("Input an integer number", 2, null, true, 3);
+        alert(eratosthenesSieve(cap).reduce(
+            function (previousValue, currentValue) { return previousValue + currentValue; }));
+    }
 
 </script>
 
