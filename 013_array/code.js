@@ -108,7 +108,7 @@ function eratosthenesSieve(cap) {
  */
 function getMaxSubSum(arr) {
     var sum = 0, highestSum = 0;
-    if (arr && arr.length) {
+    if (Array.isArray(arr)) {
         for (var i = 0; i < arr.length; i++) {
             sum += arr[i];
             highestSum = Math.max(sum, highestSum);
