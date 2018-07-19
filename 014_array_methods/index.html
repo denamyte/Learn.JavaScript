@@ -10,15 +10,21 @@
 <body>
 
 <section>
-  <h1>The styles array</h1>
-  <button id="1">Run</button>
+  <h1>The random order of an array members (1..10 array)</h1>
+  <button id="randomOrder">Run</button>
   <br>
   <hr>
 </section>
 
 <script>
 
-    document.getElementById("1").onclick = function () {
+    document.getElementById("randomOrder").onclick = function () {
+        var arr = [];
+        for (var i = 1; i <= 10; i++) {
+            arr.push(i);
+            randomArrayOrder(arr);
+        }
+        alert(arr.join(", "));
     };
 
 </script>
