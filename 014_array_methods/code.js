@@ -185,3 +185,54 @@ function printReverseListByRecursion(list, values) {
     values.push(list.value);
     return values;
 }
+
+/** Cleans an array of words from anagrams
+ *
+ * @param {Array.<string>} arr
+ * @returns {Array.<string>} A new array cleaned from anagrams
+ */
+function aclean(arr) {
+    /** An array containing unique words as they are in the initial array
+     *
+     * @type {Array.<string>}
+     */
+    var cleaned = [];
+    if (Array.isArray(arr)) {
+        /** An array containing unique words with lexically sorted letters
+         *
+         * @type {Array.<string>}
+         */
+        var testArray = [];
+        for (var i = 0; i < arr.length; i++) {
+            var word = arr[i];
+            if (word) {
+                // Prepare the next word for testing
+                var testWord = word.toLowerCase().split('').sort().join('');
+                // Testing if the the test array does not contain the new word
+                if (!~testArray.indexOf(testWord)) {
+                    // Add the initial words in both arrays
+                    testArray.push(testWord);
+                    cleaned.push(word);
+                }
+            }
+        }
+    }
+    return cleaned;
+}
+
+/** Consumes the array and returns a new array containing only unique members from the initial one
+ *
+ * @param {Array.<string>} arr
+ * @returns {Array.<string>} An array with unique members
+ */
+function unique(arr) {
+    var unique = [];
+    if (Array.isArray(arr)) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!~unique.indexOf(arr[i])) {
+                unique.push(arr[i]);
+            }
+        }
+    }
+    return unique;
+}

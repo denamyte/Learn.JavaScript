@@ -247,3 +247,47 @@ describe('printReverseListByRecursion', function () {
 
 });
 
+function intersection(arr1, arr2) {
+    return arr1.filter(function(item) {
+        return arr2.indexOf(item) != -1;
+    });
+}
+
+describe("aclean", function() {
+
+    it("contains only 1 word from each anagram set", function() {
+        var arr = ["воз", "киборг", "корсет", "зов", "гробик", "костер", "сектор"];
+
+        var result = aclean(arr);
+        assert.equal(result.length, 3);
+
+        assert.equal(intersection(result, ["гробик", "киборг"]).length, 1);
+        assert.equal(intersection(result, ["воз", "зов"]).length, 1);
+        assert.equal(intersection(result, ["корсет", "сектор", "костер"]).length, 1);
+
+    });
+
+    it("don't recognize the capitalization", function() {
+        var arr = ["воз", "ЗОВ"];
+        assert.equal(aclean(arr).length, 1);
+    });
+
+});
+
+describe("unique", function() {
+    it("removes repeating elements from the array", function() {
+        var strings = ["кришна", "кришна", "харе", "харе",
+            "харе", "харе", "кришна", "кришна", "8-()"
+        ];
+
+        assert.deepEqual(unique(strings), ["кришна", "харе", "8-()"]);
+    });
+
+    it("doesn't change the initial array", function() {
+        var strings = ["кришна", "кришна", "харе", "харе"];
+        unique(strings);
+
+        assert.deepEqual(strings, ["кришна", "кришна", "харе", "харе"]);
+    });
+});
+
