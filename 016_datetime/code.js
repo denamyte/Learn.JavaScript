@@ -89,3 +89,33 @@ function appendZerosForTwoDigits(num) {
     num = num % 100;
     return num >= 10 ? "" + num : "0" + num;
 }
+
+/** Returns relationally formatted date string. The format depends on the time passed since the date
+ *
+ * @param {Date} date - The date to be formatted
+ * @returns {string} The formatted string
+ */
+function relationalDateFormat(date) {
+    if (!date) return null;
+    var now = new Date();
+    var diff = now - date;
+    if (diff < 1000) {
+        return 'just now';
+    }
+    if (diff < 60 * 1000) {
+        return Math.floor(diff / 1000) + ' seconds ago';
+    }
+    if (diff < 60 * 60 * 1000) {
+        return Math.floor(diff / (60 * 1000)) + ' minutes ago';
+    }
+    return [
+            appendZerosForTwoDigits(date.getDate()),
+            appendZerosForTwoDigits(date.getMonth() + 1),
+            appendZerosForTwoDigits(date.getFullYear())
+        ].join(".")
+        + " "
+        + [
+            appendZerosForTwoDigits(date.getHours()),
+            appendZerosForTwoDigits(date.getMinutes())
+        ].join(":");
+}

@@ -101,15 +101,34 @@ describe("getLastDayOfMonth", function() {
 });
 
 describe("formatDateDDMMYY", function() {
-    it("правильно форматирует дату 30.01.14", function() {
+    it("formats correctly the date 01/30/14", function() {
         assert.equal(formatDateDDMMYY(new Date(2014, 0, 30)), '30.01.14');
     });
 
-    it("правильно форматирует дату 01.01.01", function() {
+    it("правильно форматирует дату 01/01/01", function() {
         assert.equal(formatDateDDMMYY(new Date(2001, 0, 1)), '01.01.01');
     });
 
-    it("правильно форматирует дату 01.01.00", function() {
+    it("правильно форматирует дату 01/01/00", function() {
         assert.equal(formatDateDDMMYY(new Date(2000, 0, 1)), '01.01.00');
     });
+});
+
+describe("relationalDateFormat", function() {
+    it('returns the date 1 ms ago as "just now"', function() {
+        assert.equal(relationalDateFormat(new Date(new Date - 1)), 'just now');
+    });
+
+    it('returns the date "30 seconds ago"', function() {
+        assert.equal(relationalDateFormat(new Date(new Date - 30 * 1000)), "30 seconds ago");
+    });
+
+    it('returns the date "5 minutes ago"', function() {
+        assert.equal(relationalDateFormat(new Date(new Date - 5 * 60 * 1000)), "5 minutes ago");
+    });
+
+    it('returns the old date in format dd.MM.YY hh:mm', function() {
+        assert.equal(relationalDateFormat(new Date(2014, 2, 1, 11, 22, 33)), "01.03.14 11:22");
+    });
+
 });
