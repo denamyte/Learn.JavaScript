@@ -62,3 +62,46 @@ function Accumulator(startingValue) {
 
 }
 
+function CalculatorExt() {
+
+    /** The storage of the known functions
+     *
+     * @type {{string: (function(number, number): number)}}
+     */
+    this.ops = {
+        '+': function (a, b) {
+            return a + b;
+        },
+        '-': function (a, b) {
+            return a - b;
+        }
+    };
+
+    /** Gets a string in format like '1 + 2' and calculates the result
+     *
+     * @param expr A mathematical expression like '1 + 2'.
+     * @returns {number} The result of the inputted expression
+     */
+    this.calculate = function (expr) {
+        if (!expr) return NaN;
+        var arr = expr.split(' ', 3);
+        if (arr.length !== 3) return NaN;
+
+        var func = this.ops[arr[1]];
+        var a = +arr[0], b = +arr[2];
+        if (!func || isNaN(a) || isNaN(b)) return NaN;
+
+        return func(a, b);
+    };
+
+    /** Adds a method to the known methods
+     *
+     * @param {string} name The new method sign
+     * @param {function} func The new function for the method
+     */
+    this.addMethod = function (name, func) {
+        if (name) {
+            this.ops[name] = func;
+        }
+    };
+}

@@ -64,3 +64,34 @@ describe("Accumulator(1)", function() {
 
 });
 
+describe('CalculatorExt', function () {
+
+    var calculator;
+    before(function() {
+        calculator = new CalculatorExt();
+    });
+
+    it("calculate(12 + 34) = 46", function() {
+        assert.equal(calculator.calculate("12 + 34"), 46);
+    });
+
+    it("calculate(34 - 12) = 22", function() {
+        assert.equal(calculator.calculate("34 - 12"), 22);
+    });
+
+    it("adding the product: calculate(2 * 3) = 6", function() {
+        calculator.addMethod("*", function(a, b) {
+            return a * b;
+        });
+        assert.equal(calculator.calculate("2 * 3"), 6);
+    });
+
+    it("adding the exponentiation: calculate(2 ** 3) = 8", function() {
+        calculator.addMethod("**", function(a, b) {
+            return Math.pow(a, b);
+        });
+        assert.equal(calculator.calculate("2 ** 3"), 8);
+    });
+
+});
+
