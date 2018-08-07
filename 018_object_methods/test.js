@@ -1,5 +1,3 @@
-
-
 describe("calculator", function() {
 
     before(function() {
