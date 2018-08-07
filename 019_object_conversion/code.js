@@ -1,3 +1,4 @@
+// 'use strict'
 /** A multi-callable function with numeric arguments. Returns the sum of all the arguments.
  *
  * @param {number} arg1
@@ -23,3 +24,10 @@ function multiBracketsSum(arg1) {
 
     return inner;
 }
+
+/** A multi-callable function with numeric arguments. Returns the sum of all the arguments.
+ *
+ * @param {number} a1 The first argument to the function
+ * @param f A multi-callable function
+ */
+const mbs = (a1, f) => (f = (a2) => mbs((a1 || 0) + a2), f.toString = () => (a1 || 0), f);
