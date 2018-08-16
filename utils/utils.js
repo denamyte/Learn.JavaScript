@@ -38,3 +38,12 @@ function isNumeric(n) {
 function randomInRangeIncl(min, max) {
     return min + Math.floor(Math.random() * (max + 1 - min));
 }
+
+/** Returns the class of an arbitrary object
+ *
+ * @param {any} obj An arbitrary object
+ * @returns {string} A string representing the class of an object
+ */
+function getClass(obj) {
+    return {}.toString.call(obj).slice(8, -1);
+}
