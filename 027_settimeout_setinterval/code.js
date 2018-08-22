@@ -46,11 +46,23 @@ function delay(f, ms) {
     }
 }
 
-/**
+/** Returns a function wrapper over the function f. When invoked, the wrapper function
+ * invokes the f function in ms milliseconds. If there is a pending delayed call, waiting
+ * for its timeout to be invoked, it is eliminated, so that only one delayed call can remain.
  *
  * @param {function} f A function to be bounced
  * @param {number} ms A timeout to bounce the function f
  */
 function debounce(f, ms) {
-    // TODO Write the code
+    var timeout = null;
+    return function (...args) {
+        var self = this;
+        var args = arguments;
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+        timeout = setTimeout(function () {
+            f.apply(self, args);
+        }, ms);
+    }
 }
