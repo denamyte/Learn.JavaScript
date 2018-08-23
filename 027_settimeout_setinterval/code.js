@@ -52,17 +52,46 @@ function delay(f, ms) {
  *
  * @param {function} f A function to be bounced
  * @param {number} ms A timeout to bounce the function f
+ * @returns {function} A function wrapper
  */
 function debounce(f, ms) {
     var timeout = null;
     return function (...args) {
         var self = this;
-        var args = arguments;
         if (timeout) {
             clearTimeout(timeout);
         }
         timeout = setTimeout(function () {
             f.apply(self, args);
         }, ms);
+    }
+}
+
+/** Returns a function wrapper over the function f. The wrapper transmits its calls to function f
+ * only once in ms milliseconds.
+ *
+ * @param {function} f A function to be wrapped
+ * @param {number} ms Time in milliseconds
+ * @returns {function} A function wrapper
+ */
+function throttle(f, ms) {
+    var timeoutId = null;
+    var lastCall = null;
+    return function (...args) {
+        var self = this;
+        var now = new Date();
+        if (lastCall === null || now - lastCall >= ms) {
+            lastCall = now;
+            f.apply(self, args);
+        } else {
+            var diff = now - lastCall;
+            if (timeoutId !== null) {
+                clearTimeout(timeoutId);
+            }
+            timeoutId = setTimeout(function () {
+                lastCall = new Date();
+                f.apply(self, args);
+            }, diff);
+        }
     }
 }

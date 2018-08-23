@@ -102,3 +102,52 @@ describe("debounce", function() {
     });
 
 });
+
+
+describe("throttle(f, 1000)", function() {
+    var f1000;
+    var log = "";
+
+    function f(a) {
+        log += a;
+    }
+
+    before(function() {
+        f1000 = throttle(f, 1000);
+        this.clock = sinon.useFakeTimers();
+    });
+
+    it("the first call works immediately", function() {
+        f1000(1);
+        assert.equal(log, "1");
+    });
+
+    it("defers the second call for 1000 ms", function() {
+        f1000(2); // (being deferred, 1000ms have not passed)
+        f1000(3); // (being deferred, 1000ms have not passed)
+        // the last call time is planned in 1000 ms, with last argument
+
+        assert.equal(log, "1"); // only the first call has come out
+
+        this.clock.tick(1000); // 1000ms passed
+        assert.equal(log, "13"); // log==13, since f1000(3) has come out
+    });
+
+    it("тормозит третье срабатывание до 1000мс после второго", function() {
+        this.clock.tick(100);
+        f1000(4); // being deferred, only 100ms have passed since the last actuation
+        this.clock.tick(100);
+        f1000(5); // being deferred, only 200ms have passed since the last actuation
+        this.clock.tick(700);
+        f1000(6); // being deferred, only 900ms have passed since the last actuation
+
+        this.clock.tick(100); // the call with 6 was invoked
+
+        assert.equal(log, "136");
+    });
+
+    after(function() {
+        this.clock.restore();
+    });
+
+});
