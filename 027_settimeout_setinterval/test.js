@@ -104,7 +104,7 @@ describe("debounce", function() {
 });
 
 
-describe("throttle(f, 1000)", function() {
+describe("throttle2(f, 1000)", function() {
     var f1000;
     var log = "";
 
@@ -113,7 +113,7 @@ describe("throttle(f, 1000)", function() {
     }
 
     before(function() {
-        f1000 = throttle(f, 1000);
+        f1000 = throttle2(f, 1000);
         this.clock = sinon.useFakeTimers();
     });
 
@@ -133,12 +133,17 @@ describe("throttle(f, 1000)", function() {
         assert.equal(log, "13"); // log==13, since f1000(3) has come out
     });
 
-    it("тормозит третье срабатывание до 1000мс после второго", function() {
+    it("passes by 4th and 5th calls, only invokes 6th call", function() {
         this.clock.tick(100);
+        /**/assert.equal(log, "13", "After this.clock.tick(100); [1]");
         f1000(4); // being deferred, only 100ms have passed since the last actuation
+        /**/assert.equal(log, "13", "After f1000(4);");
         this.clock.tick(100);
+        /**/assert.equal(log, "13", "After this.clock.tick(100); [2]");
         f1000(5); // being deferred, only 200ms have passed since the last actuation
+        /**/assert.equal(log, "13", "After f1000(5);");
         this.clock.tick(700);
+        /**/assert.equal(log, "13", "After this.clock.tick(700);");
         f1000(6); // being deferred, only 900ms have passed since the last actuation
 
         this.clock.tick(100); // the call with 6 was invoked

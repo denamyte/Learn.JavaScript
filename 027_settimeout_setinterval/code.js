@@ -80,7 +80,7 @@ function throttle(f, ms) {
     return function (...args) {
         var self = this;
         var now = new Date();
-        if (lastCall === null || now - lastCall >= ms) {
+        if (lastCall === null || (now - lastCall >= ms)) {
             lastCall = now;
             f.apply(self, args);
         } else {
@@ -91,7 +91,42 @@ function throttle(f, ms) {
             timeoutId = setTimeout(function () {
                 lastCall = new Date();
                 f.apply(self, args);
-            }, diff);
+            }, ms - diff);
         }
     }
+}
+
+function throttle2(func, ms) {
+
+    // var isThrottled = false;
+    var lastCall = performance.now() - ms;
+    // console.log("lastCall ini: " + lastCall);
+    var timeoutId = 0;
+
+    function wrapper() {
+        clearTimeout(timeoutId);
+        var now = performance.now();
+        // console.log("arg: " + arguments[0] + "; now: " + now);
+
+        var diff = now - lastCall;
+        // console.log("diff: " + diff);
+        if (diff >= ms) {
+            // console.log("arg: " + arguments[0] + "; diff passed: " + diff);
+            lastCall = now;
+            func.apply(this, arguments);
+        } else {
+            var savedThis = this;
+            var savedArgs = arguments;
+            // console.log("arg: " + arguments[0] + "; setTimeout: " + (ms - diff));
+            timeoutId = setTimeout(function () {
+                lastCall = performance.now();
+                func.apply(savedThis, savedArgs);
+                // console.log("arg: " + savedArgs[0] + "; applied after Timeout at " + performance.now());
+            }, ms - diff);
+        }
+
+    }
+
+    return wrapper;
+
 }
