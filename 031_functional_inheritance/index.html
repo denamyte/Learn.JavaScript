@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="../utils/utils.js"></script>
+  <script src="code.js"></script>
+  <style>
+    div.task {
+      width: 600px;
+      margin: 20px;
+      padding: 10px;
+      box-shadow: black 2px 2px 7px;
+    }
+  </style>
+</head>
+
+<body>
+
+<section>
+  <h2>Coffee Machine will not run if it is not enabled</h2>
+  <div class="task">
+    <textarea cols="70" rows="4">
+var coffeeMachine = new CoffeeMachine(10000);
+coffeeMachine.run(); // Error, the coffee machine is off!
+    </textarea>
+    <br/>
+    <button id="task1_error_run">Run!</button>
+  </div>
+  <div class="task">
+    <textarea cols="70" rows="4">
+var coffeeMachine = new CoffeeMachine(10000);
+coffeeMachine.enable();
+coffeeMachine.run(); // ...The coffee is ready!
+    </textarea>
+    <br/>
+    <button id="task1_normal_run">Run!</button>
+  </div>
+
+  <hr>
+</section>
+
+
+<script>
+
+    document.getElementById("task1_error_run").onclick = function () {
+        var coffeeMachine = new task1.CoffeeMachine(10000);
+        coffeeMachine.run(); // Error, the coffee machine is off!
+    };
+
+    document.getElementById("task1_normal_run").onclick = function () {
+        var coffeeMachine = new task1.CoffeeMachine(10000);
+        coffeeMachine.enable();
+        coffeeMachine.run(); // ...The coffee is ready!
+    }
+
+</script>
+
+</body>
+
+</html>
