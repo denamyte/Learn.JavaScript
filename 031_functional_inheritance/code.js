@@ -103,11 +103,7 @@ task3.Machine = function (power) {
     };
 };
 
-/**
- *
- * @param {number} power The power of the fridge
- * @constructor
- */
+
 task3.Fridge = function (power) {
     task3.Machine.apply(this, arguments);
 
@@ -134,5 +130,65 @@ task3.Fridge = function (power) {
     this.getFood = function () {
         return food.slice(0);
     };
+
+};
+
+var task4 = {};
+
+task4.Machine = function (power) {
+    this._power = power;
+    this._enabled = false;
+
+    var self = this;
+
+    this.enable = function () {
+        self._enabled = true;
+    };
+
+    this.disable = function () {
+        self._enabled = false;
+    };
+};
+
+
+task4.Fridge = function (power) {
+    task3.Machine.apply(this, arguments);
+
+    var food = [];
+    var capacity = Math.floor(power / 100);
+
+    var self = this;
+
+    this.addFood = function () {
+        // Checking the fridge is enabled
+        if (!this._enabled) {
+            throw new Error("The fridge is not enabled!");
+        }
+        var newCapacity = food.length + arguments.length;
+
+        if (newCapacity > capacity) {
+            throw new Error("The fridge capacity exceeded! " + newCapacity + "/" + capacity);
+        }
+        for (var i = 0; i < arguments.length; i++) {
+            food.push(arguments[i]);
+        }
+    };
+
+    this.getFood = function () {
+        return food.slice(0);
+    };
+
+    /**
+     *
+     * @param func A filter function
+     * @returns {*[]}
+     */
+    this.filterFood = function(func) {
+        return food.filter(func);
+    };
+
+    this.removeFood = function (foodName) {
+
+    }
 
 };
