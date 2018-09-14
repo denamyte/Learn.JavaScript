@@ -16,6 +16,7 @@
     .task textarea {
       padding: 3px;
     }
+
   </style>
 </head>
 
@@ -45,7 +46,7 @@ coffeeMachine.run(); // ...The coffee is ready!
 </section>
 
 <section>
-  <h2>Stops Coffee Machine when it is being disabled</h2>
+  <h2>The Coffee Machine getting stopped when it is being disabled</h2>
   <div class="task">
     <textarea cols="70" rows="5">
 var coffeeMachine = new CoffeeMachine(10000);
@@ -71,7 +72,6 @@ coffeeMachine.disable(); // stops working, don't alerted about coffee is ready
 
 <section>
 
-</section>
   <h2>Machine the Fridge</h2>
 
   <div class="task">
@@ -114,6 +114,68 @@ alert( fridge.getFood() ); // there are still inside: cutlet, juice, jam
     <br/>
     <button id="task3_fridge3">Run!</button>
   </div>
+
+</section>
+
+<section>
+
+  <h2>Adding filtering and removing items into the Machine the Fridge</h2>
+  <div class="task">
+    <textarea cols="70" rows="20">
+var fridge = new Fridge(500);
+fridge.enable();
+fridge.addFood({
+  title: "cutlet",
+  calories: 100
+});
+fridge.addFood({
+  title: "juice",
+  calories: 30
+});
+fridge.addFood({
+  title: "green-stuff",
+  calories: 10
+});
+fridge.addFood({
+  title: "jam",
+  calories: 150
+});
+
+fridge.removeFood("no such food"); // no effect
+alert( fridge.getFood().length ); // 4
+
+var dietItems = fridge.filterFood(function(item) {
+  return item.calories < 50;
+});
+
+dietItems.forEach(function(item) {
+  alert( item.title ); // juice, green-stuff
+  fridge.removeFood(item);
+});
+
+alert( fridge.getFood().length ); // 2
+    </textarea>
+    <br/>
+    <button id="task4_fridge">Run!</button>
+  </div>
+
+</section>
+
+<section>
+
+  <h2>Redefining disable in the Machine the Fridge</h2>
+  <div class="task">
+    <textarea cols="70" rows="5">
+var fridge = new Fridge(500);
+fridge.enable();
+fridge.addFood("couscous");
+fridge.disable(); // error, there is food in the Fridge
+    </textarea>
+    <br/>
+    <button id="task5_fridge">Run!</button>
+  </div>
+
+</section>
 
 <script>
 
@@ -164,10 +226,52 @@ alert( fridge.getFood() ); // there are still inside: cutlet, juice, jam
         var fridgeFood = fridge.getFood();
         alert( fridgeFood ); // cutlet, juice, jam
 
-// adding new elements do not influence on the food in the fridge
+        // adding new elements do not influence on the food in the fridge
         fridgeFood.push("fork", "spoon");
 
         alert( fridge.getFood() ); // there are still inside: cutlet, juice, jam
+    };
+
+    document.getElementById("task4_fridge").onclick = function () {
+        var fridge = new task4.Fridge(500);
+        fridge.enable();
+        fridge.addFood({
+            title: "cutlet",
+            calories: 100
+        });
+        fridge.addFood({
+            title: "juice",
+            calories: 30
+        });
+        fridge.addFood({
+            title: "green-stuff",
+            calories: 10
+        });
+        fridge.addFood({
+            title: "jam",
+            calories: 150
+        });
+
+        fridge.removeFood("no such food"); // no effect
+        alert( fridge.getFood().length ); // 4
+
+        var dietItems = fridge.filterFood(function(item) {
+            return item.calories < 50;
+        });
+
+        dietItems.forEach(function(item) {
+            alert( item.title ); // juice, green-stuff
+            fridge.removeFood(item);
+        });
+
+        alert( fridge.getFood().length ); // 2
+    };
+
+    document.getElementById("task5_fridge").onclick = function () {
+        var fridge = new task5.Fridge(500);
+        fridge.enable();
+        fridge.addFood("couscous");
+        fridge.disable(); // error, there is food in the Fridge
     };
 
 
