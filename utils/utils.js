@@ -47,3 +47,25 @@ function randomInRangeIncl(min, max) {
 function getClass(obj) {
     return {}.toString.call(obj).slice(8, -1);
 }
+
+/** In this function, the Child class prototypically inherits from the Parent class
+ *
+ * @param {Function} Child
+ * @param {Function} Parent
+ */
+function extend(Child, Parent) {
+    Child.prototype = inherit(Parent.prototype);
+    Child.prototype.constructor = Child;
+    Child.parent = Parent.prototype;
+}
+
+/** Creates a new prototype function with an existing function as its prototype
+ *
+ * @param proto - An existing function which is to be the prototype while the new prototype is being created
+ * @returns {Function} A new prototype function which prototype is an existing function from arguments
+ */
+function inherit(proto) {
+    function F() {}
+    F.prototype = proto;
+    return new F;
+}
