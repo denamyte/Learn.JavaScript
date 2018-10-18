@@ -39,7 +39,7 @@ function randomInRangeIncl(min, max) {
     return min + Math.floor(Math.random() * (max + 1 - min));
 }
 
-/** Returns the class of an arbitrary object
+/** Returns the class i.e. [[Class]] of an arbitrary object
  *
  * @param {any} obj An arbitrary object
  * @returns {string} A string representing the class of an object
