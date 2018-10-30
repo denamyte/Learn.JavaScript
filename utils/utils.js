@@ -69,3 +69,34 @@ function inherit(proto) {
     F.prototype = proto;
     return new F;
 }
+
+/** A Promise wrapper over an xhr-request with GET type
+ *
+ * @param {string} url A url for an xhr GET request.
+ * @returns {Promise<any>} A promise returning either a result or an error when an xhr-request is loaded
+ */
+function httpGet(url) {
+
+    return new Promise(function(resolve, reject) {
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+
+        xhr.onload = function() {
+            if (this.status == 200) {
+                resolve(this.response);
+            } else {
+                var error = new Error(this.statusText);
+                error.code = this.status;
+                reject(error);
+            }
+        };
+
+        xhr.onerror = function() {
+            reject(new Error("Network Error"));
+        };
+
+        xhr.send();
+    });
+
+}
