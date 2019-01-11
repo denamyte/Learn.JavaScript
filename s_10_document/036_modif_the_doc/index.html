@@ -121,6 +121,58 @@ let data = {
     <hr>
   </section>
 
+  <section>
+    <h2>Show descendants numbers in a tree</h2>
+    <div class="task">
+      <textarea cols="70" rows="1">
+
+      </textarea>
+      <br />
+
+      <ul id="showDescNumbersUl">
+        <li>Animals
+          <ul>
+            <li>Mammals
+              <ul>
+                <li>Cows</li>
+                <li>Donkeys</li>
+                <li>Dogs</li>
+                <li>Tigers</li>
+              </ul>
+            </li>
+            <li>Other
+              <ul>
+                <li>Snakes</li>
+                <li>Birds</li>
+                <li>Lizards</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>Fishes
+          <ul>
+            <li>Aquarium
+              <ul>
+                <li>Guppy</li>
+                <li>Angelfish</li>
+              </ul>
+            </li>
+            <li>Sea
+              <ul>
+                <li>Sea trout</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="showDescNumbers">Show!</button>
+
+    </div>
+
+    <hr>
+  </section>
+
   <script>
 
     document.getElementById("clearElem1").onclick = function () {
@@ -162,6 +214,11 @@ let data = {
     document.getElementById("clearTree").onclick = function () {
       clear(document.getElementById('createTreeContainer'));
     };
+
+    document.getElementById("showDescNumbers").onclick = function() {
+      let ul = document.getElementById("showDescNumbersUl");
+      showDescendantsNumbers(ul);
+    }
 
   </script>
 

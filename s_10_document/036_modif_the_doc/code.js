@@ -1,5 +1,5 @@
 
-/**
+/** Clears the element
  * 
  * @param {HTMLElement} elem An element to clear
  */
@@ -10,7 +10,7 @@ function clear(elem) {
     }
 }
 
-/**
+/** Creates a list from user's answers
  * 
  * @param {HTMLUListElement} ul 
  */
@@ -28,7 +28,7 @@ function createList(ul) {
     }
 }
 
-/**
+/** Creates a tree with ul and li tags from the given data object
  * 
  * @param {HTMLElement} container A container to place the list
  * @param {*} data A data to make the list of
@@ -44,5 +44,44 @@ function createTree(parent, data) {
             ul.appendChild(li);
             createTree(li, data[key]);
         };
+    }
+}
+
+/** Adds numbers of descendants in non-empty leaves of the list
+ * 
+ * @param {HTMLUListElement | HTMLOListElement} list 
+ */
+function showDescendantsNumbers(list) {
+    if (!list) {
+        return 0;
+    }
+    let count = 0;
+    
+    for (let li of list.children) {
+        count++;  // the count increments for every leaf
+        count += showNumbersInLeaf(li);  // the number in leaves gets added to the count
+    }
+
+    function showNumbersInLeaf(li) {
+        let count = showDescendantsNumbers(li.firstElementChild);
+        if (count) {
+            li.firstChild.data = `${li.firstChild.data} [${count}]` ;
+        }
+        return count;
+    }
+
+    return count;
+}
+
+function showDescendantsNumbers2(list) {
+    let lis = list.getElementsByTagName('li');
+
+    for (let li of lis) {
+      // get the count of all <li> below this <li>
+      let descendantsCount = li.getElementsByTagName('li').length;
+      if (!descendantsCount) continue;
+
+      // add directly to the text node (append to the text)
+      li.firstChild.data += ' [' + descendantsCount + ']';
     }
 }
