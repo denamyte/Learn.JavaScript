@@ -18,6 +18,22 @@
     .task textarea {
       padding: 3px;
     }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid black;
+      padding: 3px;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #E6E6E6;
+    }
   </style>
 </head>
 
@@ -173,6 +189,27 @@ let data = {
     <hr>
   </section>
 
+
+  <section>
+    <h2>Create a calendar</h2>
+    <div class="task">
+      <textarea cols="70" rows="3">
+        createCalendar(elem, year, month)
+      </textarea>
+      <br>
+
+      <button id="createCalendar">Create Calendar!</button>
+
+      <br>
+      <br>
+
+      <div id="createCalendarElem" style="border: 1px solid gray; padding: 5px;"></div>
+
+    </div>
+
+    <hr>
+  </section>
+
   <script>
 
     document.getElementById("clearElem1").onclick = function () {
@@ -215,9 +252,15 @@ let data = {
       clear(document.getElementById('createTreeContainer'));
     };
 
-    document.getElementById("showDescNumbers").onclick = function() {
+    document.getElementById("showDescNumbers").onclick = function () {
       let ul = document.getElementById("showDescNumbersUl");
       showDescendantsNumbers(ul);
+    }
+
+    document.getElementById("createCalendar").onclick = function () {
+      let elem = document.getElementById("createCalendarElem");
+      clear(elem);
+      createCalendar(elem, 2012, 9);
     }
 
   </script>
