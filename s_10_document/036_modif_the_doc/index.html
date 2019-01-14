@@ -19,20 +19,24 @@
       padding: 3px;
     }
 
-    table {
+    .calendarHolder table {
       border-collapse: collapse;
     }
 
-    td,
-    th {
+    .calendarHolder td,
+    .calendarHolder th {
       border: 1px solid black;
       padding: 3px;
       text-align: center;
     }
 
-    th {
+    .calendarHolder th {
       font-weight: bold;
       background-color: #E6E6E6;
+    }
+
+    .calendarHolder td:nth-child(6), .calendarHolder td:nth-child(7) {
+      color: red;
     }
   </style>
 </head>
@@ -193,17 +197,23 @@ let data = {
   <section>
     <h2>Create a calendar</h2>
     <div class="task">
-      <textarea cols="70" rows="3">
+      <!-- <textarea cols="70" rows="3">
         createCalendar(elem, year, month)
-      </textarea>
+      </textarea> -->
       <br>
-
+      <label for="calendarYear">Year </label>
+      <input type="number" min="1900" max="2200" id="calendarYear" value="2019">
+      <br>
+      <label for="calendarMonth">Month </label>
+      <input type="number" min="1" max="12" id="calendarMonth" value="1">
+      
+      <br>
       <button id="createCalendar">Create Calendar!</button>
 
       <br>
       <br>
 
-      <div id="createCalendarElem" style="border: 1px solid gray; padding: 5px;"></div>
+      <div class="calendarHolder" style="border: 1px solid gray; padding: 5px;"></div>
 
     </div>
 
@@ -258,10 +268,23 @@ let data = {
     }
 
     document.getElementById("createCalendar").onclick = function () {
-      let elem = document.getElementById("createCalendarElem");
-      clear(elem);
-      createCalendar(elem, 2012, 9);
+      createCalendarHelper();
     }
+    function createCalendarHelper() {
+      let elem = document.querySelector(".calendarHolder");
+      clear(elem);
+      let year = document.getElementById("calendarYear").value;
+      let month = document.getElementById("calendarMonth").value;
+      if (year && month) {
+        createCalendar(elem, year, month);
+      }
+    }
+    document.getElementById("calendarYear").addEventListener('change', (event) => {
+      createCalendarHelper();
+    })
+    document.getElementById("calendarMonth").addEventListener('change', (event) => {
+      createCalendarHelper();
+    })
 
   </script>
 

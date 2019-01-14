@@ -56,7 +56,7 @@ function showDescendantsNumbers(list) {
         return 0;
     }
     let count = 0;
-    
+
     for (let li of list.children) {
         count++;  // the count increments for every leaf
         count += showNumbersInLeaf(li);  // the number in leaves gets added to the count
@@ -65,7 +65,7 @@ function showDescendantsNumbers(list) {
     function showNumbersInLeaf(li) {
         let count = showDescendantsNumbers(li.firstElementChild);
         if (count) {
-            li.firstChild.data = `${li.firstChild.data} [${count}]` ;
+            li.firstChild.data = `${li.firstChild.data} [${count}]`;
         }
         return count;
     }
@@ -81,12 +81,12 @@ function showDescendantsNumbers2(list) {
     let lis = list.getElementsByTagName('li');
 
     for (let li of lis) {
-      // get the count of all <li> below this <li>
-      let descendantsCount = li.getElementsByTagName('li').length;
-      if (!descendantsCount) continue;
+        // get the count of all <li> below this <li>
+        let descendantsCount = li.getElementsByTagName('li').length;
+        if (!descendantsCount) continue;
 
-      // add directly to the text node (append to the text)
-      li.firstChild.data += ' [' + descendantsCount + ']';
+        // add directly to the text node (append to the text)
+        li.firstChild.data += ' [' + descendantsCount + ']';
     }
 }
 
@@ -101,6 +101,9 @@ function createCalendar(elem, year, month) {
     // What day of the week is the first day of the given month
     // let date = new Date(year, month - 1, 1);
     let dayOfTheWeek = new Date(year, month - 1, 1).getDay();
+    if (dayOfTheWeek == 0) {
+        dayOfTheWeek = 7;
+    }
     console.log(`day of the week : ${dayOfTheWeek}`);
 
     // How many days in the given month?
@@ -116,17 +119,19 @@ function createCalendar(elem, year, month) {
     let rowsNumber = Math.ceil(minimumDays / 7);
     console.log(`number of rows : ${rowsNumber}`);
 
-    // The array which successively holds all days strings of the calendar table
-    let daysArray = new Array(rowsNumber * 7).fill('');
-    let curDay = 1;
-    for (let index = dayOfTheWeek - 1; index < dayOfTheWeek - 1 + daysInMonth; index++) {
-        daysArray[index] = curDay++;
+    // The array which successively holds the data (strings)
+    // of every cell (the days part) of the calendar
+    let cellsArray = new Array(rowsNumber * 7).fill('');
+    for (let index = dayOfTheWeek - 1, curDay = 1;
+         index < dayOfTheWeek - 1 + daysInMonth;
+         index++, curDay++) {
+        cellsArray[index] = curDay;
     }
-    console.log(`array of table days ${daysArray}`);
-    
+    console.log(`array of table days ${cellsArray}`);
+
     // Generating the table: th
     let table = document.createElement('table');
-    let trh  = document.createElement('tr');
+    let trh = document.createElement('tr');
     for (let index = 0; index < 7; index++) {
         let td = document.createElement('th');
         td.innerText = DAYS_OF_WEEK[index];
@@ -134,11 +139,23 @@ function createCalendar(elem, year, month) {
     }
     table.appendChild(trh);
 
-    // TODO ... Append other childs
+    // Generating the table: days rows
+    // The loop for rows 
+    let cellCounter = 0;  // The counter for every cell in the numbers part of the table
+    for (let rowIndex = 0; rowIndex < rowsNumber; rowIndex++) {
+        let tr = document.createElement('tr');
+        // The loop for days in the row
+        for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
+            let td = document.createElement('td');
+            td.innerText = cellsArray[cellCounter++];
+            tr.appendChild(td);
+        }
+        table.appendChild(tr);
+    }
 
     // Assigning the table to elem
     elem.appendChild(table);
-    
+
 }
 
 
