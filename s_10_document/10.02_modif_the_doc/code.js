@@ -43,7 +43,7 @@ function createTree(parent, data) {
             li.innerText = key;
             ul.appendChild(li);
             createTree(li, data[key]);
-        };
+        }
     }
 }
 
@@ -101,7 +101,7 @@ function createCalendar(elem, year, month) {
     // What day of the week is the first day of the given month
     // let date = new Date(year, month - 1, 1);
     let dayOfTheWeek = new Date(year, month - 1, 1).getDay();
-    if (dayOfTheWeek == 0) {
+    if (dayOfTheWeek === 0) {
         dayOfTheWeek = 7;
     }
     console.log(`day of the week : ${dayOfTheWeek}`);
